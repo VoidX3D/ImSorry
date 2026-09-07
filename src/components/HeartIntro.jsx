@@ -8,8 +8,6 @@ export default function HeartIntro({ onEnter }) {
     if (clickedRef.current) return;
     clickedRef.current = true;
     setExiting(true);
-    // heart reacts → scales slightly → glow expands → fades
-    // match CSS exit duration (900ms) + short black pause (450ms) before sequence
     window.setTimeout(() => onEnter(), 1350);
   }, [onEnter]);
 
@@ -28,14 +26,17 @@ export default function HeartIntro({ onEnter }) {
       <button
         type="button"
         className="heart-btn"
-        aria-label="Open apology"
+        aria-label="Open the letter"
         onClick={handleEnter}
         onKeyDown={handleKeyDown}
+        onTouchEnd={(e) => {
+          // prevent ghost click duplication, but still allow enter
+          e.preventDefault();
+          handleEnter();
+        }}
         disabled={exiting}
       >
-        {/* Subtle outer glow */}
         <span className="heart-glow" aria-hidden="true" />
-        {/* Custom SVG heart — elegant, not cartoonish */}
         <svg
           className="heart-svg"
           viewBox="0 0 100 90"
@@ -51,7 +52,6 @@ export default function HeartIntro({ onEnter }) {
             strokeWidth="1.2"
             strokeLinejoin="round"
           />
-          {/* inner highlight to give barely-visible shape */}
           <path
             d="M50 78 C 50 78, 14 57, 14 33 C 14 21, 22 13, 32 13 C 39 13, 45 17, 50 23 C 55 17, 61 13, 68 13 C 78 13, 86 21, 86 33 C 86 57, 50 78, 50 78 Z"
             fill="#0d0d0f"

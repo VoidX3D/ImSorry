@@ -1,6 +1,14 @@
 /* ------------------------------------------------------------------ */
-/*  Font — Doppio One (local) + Chewy fallback                         */
+/*  Font — Caveat (primary) + Doppio One + Chewy fallback               */
 /* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Caveat";
+  src: url("/fonts/Caveat-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "Doppio One";
   src: url("/fonts/DoppioOne-Regular.ttf") format("truetype");
@@ -30,20 +38,29 @@
 
 html {
   background: #000;
-  height: 100%;
-  /* prevent elastic scroll flashes */
-  overscroll-behavior: none;
+  min-height: 100%;
+  overscroll-behavior: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
   min-height: 100%;
   background: #000;
   color: #fff;
-  font-family: "Doppio One", "Chewy", cursive;
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* fixed viewport — never scroll during sequence */
-  overscroll-behavior: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: auto;
 }
 
 #root {
@@ -210,8 +227,8 @@ body {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 880px;
-  padding: 0 24px;
+  max-width: 860px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,8 +240,8 @@ body {
 .message-text {
   text-align: center;
   color: #fff;
-  line-height: 1.18;
-  letter-spacing: 0.015em;
+  line-height: 1.24;
+  letter-spacing: 0.02em;
   font-weight: 400;
   text-wrap: balance;
   max-width: 16ch;
@@ -237,22 +254,24 @@ body {
   /* centered via flex parent */
 }
 
-/* Size variants — clamp for responsiveness */
+/* Size variants — clamp for responsiveness (tuned for Caveat) */
 .message-text.size-small {
-  font-size: clamp(1.55rem, 4.2vw, 2.35rem);
+  font-size: clamp(1.78rem, 4.8vw, 2.68rem);
   max-width: 22ch;
-  line-height: 1.28;
+  line-height: 1.32;
 }
 .message-text.size-normal {
-  font-size: clamp(1.9rem, 5.6vw, 3.1rem);
+  font-size: clamp(2.18rem, 6.2vw, 3.55rem);
   max-width: 18ch;
+  line-height: 1.22;
 }
 .message-text.size-large {
-  font-size: clamp(2.15rem, 6.5vw, 4rem);
+  font-size: clamp(2.52rem, 7vw, 4.45rem);
+  line-height: 1.18;
 }
 .message-text.size-xlarge {
-  font-size: clamp(2.5rem, 8vw, 5.2rem);
-  line-height: 1.08;
+  font-size: clamp(2.92rem, 9vw, 5.85rem);
+  line-height: 1.12;
 }
 
 /* Glow variants — subtle, cinematic, never neon */
@@ -308,7 +327,7 @@ body {
 }
 
 .replay-btn {
-  font-family: "Doppio One", "Chewy", cursive;
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
   font-size: 0.95rem;
   letter-spacing: 0.04em;
   color: rgba(255,255,255,0.72);
@@ -380,4 +399,60 @@ body {
   @keyframes heart-exit-reduced {
     to { opacity: 0; }
   }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Final screen — Read the full letter                               */
+/* ------------------------------------------------------------------ */
+.final-screen {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+}
+
+.final-screen.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.full-letter-link {
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: clamp(0.98rem, 2.2vw, 1.05rem);
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  padding-bottom: 3px;
+  transition: color 180ms ease, border-color 180ms ease;
+  display: inline-block;
+}
+
+.full-letter-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.48);
+}
+
+.full-letter-link:focus-visible {
+  outline: none;
+  color: #fff;
+  border-color: rgba(255,255,255,0.55);
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(255,255,255,0.35);
+  border-radius: 2px;
+}
+
+/* ensure engine-host doesn't interfere */
+.engine-host {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

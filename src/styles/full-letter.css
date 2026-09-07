@@ -1,0 +1,129 @@
+/* Full letter — readable, calm, same identity */
+.full-letter-shell {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #000;
+  color: #ececec;
+  overflow: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.full-letter-shell::-webkit-scrollbar {
+  display: none;
+}
+
+.full-letter-shell .particle-canvas {
+  opacity: 0.42; /* significantly more subtle than main experience */
+}
+
+.full-letter-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 20px 72px;
+  padding-top: max(56px, env(safe-area-inset-top));
+  padding-bottom: max(72px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+  animation: letter-enter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes letter-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.letter-kicker {
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: 0.92rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.42);
+  margin-bottom: 28px;
+}
+
+.letter-title {
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: clamp(2.35rem, 5.2vw, 2.95rem);
+  line-height: 1.2;
+  color: #fff;
+  font-weight: 400;
+  text-shadow: 0 0 10px rgba(255,255,255,0.18);
+  margin-bottom: 28px;
+}
+
+.letter-body {
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: clamp(1.38rem, 2.9vw, 1.58rem);
+  line-height: 1.95;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: 0.02em;
+}
+
+.letter-body p {
+  margin: 0 0 1.35em;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+.letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-body .para-break {
+  height: 0.6em;
+}
+
+.letter-closing {
+  margin-top: 56px;
+  padding-top: 40px;
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: clamp(1.48rem, 3.6vw, 1.88rem);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.22);
+}
+
+.letter-nav {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.letter-back {
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: 0.96rem;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.58);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  padding-bottom: 2px;
+  transition: color 180ms ease, border-color 180ms ease;
+  display: inline-block;
+}
+
+.letter-back:hover,
+.letter-back:focus-visible {
+  color: #fff;
+  border-color: rgba(255,255,255,0.44);
+  outline: none;
+}
+
+.letter-back:focus-visible {
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(255,255,255,0.35);
+  border-radius: 2px;
+}
+
+@media (max-width: 480px) {
+  .full-letter-inner {
+    padding: 40px 20px 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .full-letter-inner {
+    animation: none;
+  }
+}
