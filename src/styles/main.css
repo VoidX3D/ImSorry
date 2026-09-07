@@ -1,0 +1,383 @@
+/* ------------------------------------------------------------------ */
+/*  Font — Doppio One (local) + Chewy fallback                         */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Doppio One";
+  src: url("/fonts/DoppioOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chewy";
+  src: url("/fonts/Chewy.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reset & base                                                      */
+/* ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #000;
+  height: 100%;
+  /* prevent elastic scroll flashes */
+  overscroll-behavior: none;
+}
+
+body {
+  min-height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: "Doppio One", "Chewy", cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* fixed viewport — never scroll during sequence */
+  overscroll-behavior: none;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #000;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  z-index: 100;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  App shell                                                         */
+/* ------------------------------------------------------------------ */
+.app-shell {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.particle-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Heart intro                                                       */
+/* ------------------------------------------------------------------ */
+.heart-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* breathing wrapper */
+  animation: heart-breathe 4.2s ease-in-out infinite;
+}
+
+@keyframes heart-breathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-7px) scale(1.035);
+  }
+}
+
+.heart-btn {
+  position: relative;
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.heart-btn:focus-visible {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.55),
+    0 0 0 5px rgba(255, 255, 255, 0.12),
+    0 0 28px rgba(255, 255, 255, 0.18);
+}
+
+.heart-glow {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, transparent 72%);
+  filter: blur(6px);
+  pointer-events: none;
+  transition: transform 420ms ease, opacity 420ms ease, background 420ms ease;
+  opacity: 0.9;
+}
+
+.heart-svg {
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.14))
+          drop-shadow(0 0 28px rgba(255, 255, 255, 0.07));
+  transition: filter 420ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
+}
+
+.heart-btn:hover .heart-glow {
+  transform: scale(1.22);
+  background: radial-gradient(circle, rgba(255,255,255,0.13) 0%, transparent 72%);
+}
+
+.heart-btn:hover .heart-svg {
+  transform: scale(1.07);
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.22))
+          drop-shadow(0 0 36px rgba(255,255,255,0.10));
+}
+
+.heart-btn:active .heart-svg {
+  transform: scale(0.97);
+}
+
+/* Exit sequence */
+.heart-stage.is-exiting {
+  animation: heart-exit-stage 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.heart-stage.is-exiting .heart-glow {
+  animation: heart-glow-expand 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.heart-stage.is-exiting .heart-svg {
+  animation: heart-svg-exit 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heart-exit-stage {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  30% { transform: translateY(-2px) scale(1.06); }
+  100% { opacity: 0; transform: translateY(-6px) scale(1.14); }
+}
+
+@keyframes heart-glow-expand {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+
+@keyframes heart-svg-exit {
+  0% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255,255,255,0.14)); }
+  40% { opacity: 1; filter: drop-shadow(0 0 22px rgba(255,255,255,0.34)) drop-shadow(0 0 48px rgba(255,255,255,0.14)); }
+  100% { opacity: 0; filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Message engine                                                    */
+/* ------------------------------------------------------------------ */
+.engine-root {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 880px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  pointer-events: none;
+}
+
+.message-text {
+  text-align: center;
+  color: #fff;
+  line-height: 1.18;
+  letter-spacing: 0.015em;
+  font-weight: 400;
+  text-wrap: balance;
+  max-width: 16ch;
+  /* ensure long lines wrap elegantly */
+  overflow-wrap: break-word;
+  word-break: break-word;
+  /* base glow — overridden by glow-* */
+  text-shadow: 0 0 8px rgba(255,255,255,0.34), 0 0 20px rgba(255,255,255,0.11);
+  will-change: opacity, transform, filter;
+  /* centered via flex parent */
+}
+
+/* Size variants — clamp for responsiveness */
+.message-text.size-small {
+  font-size: clamp(1.55rem, 4.2vw, 2.35rem);
+  max-width: 22ch;
+  line-height: 1.28;
+}
+.message-text.size-normal {
+  font-size: clamp(1.9rem, 5.6vw, 3.1rem);
+  max-width: 18ch;
+}
+.message-text.size-large {
+  font-size: clamp(2.15rem, 6.5vw, 4rem);
+}
+.message-text.size-xlarge {
+  font-size: clamp(2.5rem, 8vw, 5.2rem);
+  line-height: 1.08;
+}
+
+/* Glow variants — subtle, cinematic, never neon */
+.message-text.glow-soft {
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.30),
+    0 0 18px rgba(255,255,255,0.10);
+}
+.message-text.glow-medium {
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.40),
+    0 0 26px rgba(255,255,255,0.14),
+    0 0 48px rgba(255,255,255,0.06);
+}
+.message-text.glow-strong {
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.48),
+    0 0 30px rgba(255,255,255,0.18),
+    0 0 60px rgba(255,255,255,0.08);
+}
+.message-text.glow-strongest {
+  text-shadow:
+    0 0 14px rgba(255,255,255,0.55),
+    0 0 34px rgba(255,255,255,0.22),
+    0 0 70px rgba(255,255,255,0.10);
+  letter-spacing: 0.02em;
+}
+
+/* Finished state */
+.engine-root.is-finished,
+.engine-root.is-intermission {
+  pointer-events: none;
+}
+
+.end-hint {
+  color: rgba(255,255,255,0.22);
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Replay / controls (minimal, bottom)                               */
+/* ------------------------------------------------------------------ */
+.replay-wrap {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.replay-btn {
+  font-family: "Doppio One", "Chewy", cursive;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.72);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 9999px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.replay-btn:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.32);
+  background: rgba(255,255,255,0.06);
+}
+
+.replay-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(255,255,255,0.45);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Responsive tweaks                                                 */
+/* ------------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .engine-root {
+    padding: 0 20px;
+  }
+  .heart-svg {
+    width: 78px;
+    height: 71px;
+  }
+  .heart-glow {
+    width: 74px;
+    height: 74px;
+  }
+}
+
+@media (max-height: 520px) {
+  .message-text.size-xlarge {
+    font-size: clamp(2rem, 7vw, 3.6rem);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                    */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .heart-stage {
+    animation: none;
+  }
+  .heart-svg,
+  .heart-glow {
+    transition: opacity 300ms ease;
+  }
+  .message-text {
+    transition: opacity 600ms ease !important;
+    transform: none !important;
+  }
+  .heart-stage.is-exiting {
+    animation: heart-exit-reduced 600ms ease forwards;
+  }
+  .heart-stage.is-exiting .heart-glow,
+  .heart-stage.is-exiting .heart-svg {
+    animation: none;
+    opacity: 0;
+  }
+  @keyframes heart-exit-reduced {
+    to { opacity: 0; }
+  }
+}
