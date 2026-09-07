@@ -124,9 +124,26 @@ export default function FullLetter() {
 
         <p className="letter-closing">I’m sorry... 🥲</p>
 
+        <p className="letter-ps">
+          p.s. I’m sending this as a website link cuz I told my parents I was doing research for the flash flood project
+          when making this — and as it was just coding they didn’t suspect. I can’t really use Instagram right now.
+          This single page should show you what I really wanted to tell you. In the future I’ll add more messages to{" "}
+          <Link to="/new-msgs" className="ps-link">
+            /new-msgs
+          </Link>{" "}
+          on this site, so stay tuned ;)
+        </p>
+
         <nav className="letter-nav" aria-label="Letter navigation">
           <Link to="/" className="letter-back">
             ← Back to the beginning
+          </Link>
+          <span className="letter-nav-sep" aria-hidden="true">
+            {" "}
+            ·{" "}
+          </span>
+          <Link to="/new-msgs" className="letter-back">
+            New messages →
           </Link>
         </nav>
       </article>

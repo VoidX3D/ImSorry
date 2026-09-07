@@ -127,3 +127,37 @@
     animation: none;
   }
 }
+
+.letter-ps {
+  margin-top: 40px;
+  padding: 18px 18px;
+  border-left: 2px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  font-family: "Caveat", "Doppio One", "Chewy", cursive;
+  font-size: clamp(1.05rem, 2.4vw, 1.18rem);
+  line-height: 1.75;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.015em;
+}
+
+.ps-link {
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+  padding-bottom: 1px;
+}
+
+.ps-link:hover {
+  border-color: rgba(255,255,255,0.55);
+}
+
+.letter-muted {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95em;
+}
+
+.letter-nav-sep {
+  color: rgba(255,255,255,0.22);
+  margin: 0 6px;
+}

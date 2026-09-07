@@ -5,6 +5,7 @@ import HeartIntro from "./components/HeartIntro.jsx";
 import ApologyEngine from "./components/ApologyEngine.jsx";
 import FinalScreen from "./components/FinalScreen.jsx";
 import FullLetter from "./pages/FullLetter.jsx";
+import NewMsgs from "./pages/NewMsgs.jsx";
 
 function Experience() {
   const [phase, setPhase] = useState("heart"); // heart | messages
@@ -62,6 +63,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Experience />} />
         <Route path="/full-letter" element={<FullLetter />} />
+        <Route path="/new-msgs" element={<NewMsgs />} />
         {/* fallback — any unknown goes to experience */}
         <Route path="*" element={<Experience />} />
       </Routes>
