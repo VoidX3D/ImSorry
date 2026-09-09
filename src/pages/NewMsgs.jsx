@@ -1,21 +1,32 @@
 import { Link } from "react-router-dom";
 import ParticleBackground from "../components/ParticleBackground.jsx";
+import NewMsgPost from "../components/NewMsgPost.jsx";
+import { getNewMsgs } from "../data/newMsgs.js";
 import "../styles/full-letter.css";
+import "../styles/newmsgs.css";
 
 export default function NewMsgs() {
+  const posts = getNewMsgs();
   return (
     <div className="full-letter-shell">
       <ParticleBackground subtle />
-      <article className="full-letter-inner">
+      <article className="full-letter-inner newmsgs-inner">
         <p className="letter-kicker">New messages</p>
-        <h1 className="letter-title">New message</h1>
+        <h1 className="letter-title">Flying kisses & more</h1>
+        <p className="letter-muted" style={{ marginBottom: 18 }}>
+          Posts feed — add future messages in <code>src/data/newMsgs.js</code> (id, text, createdAt, author). Nothing hardcoded.
+        </p>
 
-        <div className="letter-body">
-          <p style={{ fontSize: "1.52rem", lineHeight: 1.6 }}>
-            How did you like that flying kiss babe? ❤️
-          </p>
-          <p className="letter-muted" style={{ marginTop: 18 }}>
-            — added just now · more coming soon at /new-msgs ;)
+        <div className="newmsgs-feed">
+          {posts.map((p) => (
+            <NewMsgPost key={p.id} post={p} />
+          ))}
+          {posts.length === 0 && <p className="letter-muted">No messages yet — check back soon.</p>}
+        </div>
+
+        <div className="newmsgs-hint">
+          <p className="letter-muted">
+            To add a new post: open <code>src/data/newMsgs.js</code>, push an object to <code>newMsgs</code>, commit & deploy — it appears here automatically.
           </p>
         </div>
 
@@ -27,8 +38,15 @@ export default function NewMsgs() {
             {" "}
             ·{" "}
           </span>
+          <Link to="/home" className="letter-back">
+            Home
+          </Link>
+          <span className="letter-nav-sep" aria-hidden="true">
+            {" "}
+            ·{" "}
+          </span>
           <Link to="/" className="letter-back">
-            Back to the beginning
+            Heart
           </Link>
         </nav>
       </article>

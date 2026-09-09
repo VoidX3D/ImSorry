@@ -4,8 +4,10 @@ import ParticleBackground from "./components/ParticleBackground.jsx";
 import HeartIntro from "./components/HeartIntro.jsx";
 import ApologyEngine from "./components/ApologyEngine.jsx";
 import FinalScreen from "./components/FinalScreen.jsx";
+import SideNav from "./components/SideNav.jsx";
 import FullLetter from "./pages/FullLetter.jsx";
 import NewMsgs from "./pages/NewMsgs.jsx";
+import Home from "./pages/Home.jsx";
 
 function Experience() {
   const [phase, setPhase] = useState("heart"); // heart | messages
@@ -35,6 +37,7 @@ function Experience() {
       </a>
 
       <ParticleBackground burst={burst} subtle={finished} />
+      <SideNav />
 
       {phase === "heart" && <HeartIntro key={`heart-${key}`} onEnter={handleEnter} />}
 
@@ -62,6 +65,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Experience />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/full-letter" element={<FullLetter />} />
         <Route path="/new-msgs" element={<NewMsgs />} />
         {/* fallback — any unknown goes to experience */}
