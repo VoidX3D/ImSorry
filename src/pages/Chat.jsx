@@ -5,7 +5,7 @@ import { initialChatMsgs } from "../data/chatMsgs.js";
 import "../styles/full-letter.css";
 import "../styles/chat.css";
 
-const EMOJIS = ["❤️", "😔", "🥲", "😭", "💀", "🫶", "😊", "😘", "🥺", "✨", "💌", "🌙", "☁️", "🫂", "🤍", "💋"];
+const EMOJIS = ["❤️","😘","💋","💌","🥺","🥲","😔","😊","✨","🫶","🫂","🌙","☁️","💀","🤍","😭"];
 
 function timeAgo(iso) {
   const d = new Date(iso);
@@ -23,6 +23,7 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const listRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
@@ -34,6 +35,7 @@ export default function Chat() {
     setMsgs((m) => [...m, { id: `c${Date.now()}`, from: "you", text: t, at: new Date().toISOString() }]);
     setInput("");
     setShowEmoji(false);
+    setTimeout(() => inputRef.current?.focus(), 50);
   };
 
   const addEmoji = (e) => setInput((s) => s + e);
@@ -43,11 +45,11 @@ export default function Chat() {
       <ParticleBackground subtle />
       <article className="full-letter-inner chat-inner">
         <p className="letter-kicker">Chat</p>
-        <h1 className="letter-title">Messages — live later</h1>
-        <p className="letter-muted">Full chat UI with emoji picker. Live sync will come later — for now it’s local.</p>
+        <h1 className="letter-title">Chat</h1>
+        <p className="letter-muted">Live sync + DB logging later — for now local & usable on phone and laptop.</p>
 
         <div className="chat-window">
-          <div className="chat-list" ref={listRef}>
+          <div className="chat-list" ref={listRef} role="log" aria-live="polite">
             {msgs.map((m) => (
               <div key={m.id} className={`chat-bubble ${m.from === "you" ? "from-you" : "from-them"}`}>
                 <p className="chat-text">{m.text}</p>
@@ -74,13 +76,14 @@ export default function Chat() {
               aria-expanded={showEmoji}
               onClick={() => setShowEmoji((v) => !v)}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
                 <circle cx="12" cy="12" r="9" />
                 <path d="M8 14s1.5 2 4 2 4-2 4-2" />
                 <path d="M9 9h.01 M15 9h.01" />
               </svg>
             </button>
             <input
+              ref={inputRef}
               className="chat-input"
               placeholder="Type a message…"
               value={input}
@@ -90,22 +93,19 @@ export default function Chat() {
                   e.preventDefault();
                   send();
                 }
+                if (e.key === "Escape") setShowEmoji(false);
               }}
+              aria-label="Message input"
+              autoComplete="off"
+              inputMode="text"
             />
-            <button type="button" className="chat-send" onClick={send} aria-label="Send message">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+            <button type="button" className="chat-send" onClick={send} aria-label="Send message" disabled={!input.trim()}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
                 <path d="M22 2L11 13" />
                 <path d="M22 2L15 22L11 13L2 9L22 2z" />
               </svg>
             </button>
           </div>
-        </div>
-
-        <div className="chat-hint">
-          <p className="letter-muted">
-            Emoji supported — pick from the face button. Live chat (typing, read, WS) will be wired later; edit{" "}
-            <code>src/data/chatMsgs.js</code> to change starter history.
-          </p>
         </div>
 
         <nav className="letter-nav">
