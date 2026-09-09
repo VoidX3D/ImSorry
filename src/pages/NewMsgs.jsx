@@ -8,14 +8,15 @@ export default function NewMsgs() {
       <ParticleBackground subtle />
       <article className="full-letter-inner">
         <p className="letter-kicker">New messages</p>
-        <h1 className="letter-title">Coming soon.</h1>
+        <h1 className="letter-title">New message</h1>
 
         <div className="letter-body">
-          <p>
-            I’ll add more messages here whenever I get the chance — check back at this page.
-            Same place, same site, new words when I can.
+          <p style={{ fontSize: "1.52rem", lineHeight: 1.6 }}>
+            How did you like that flying kiss babe? ❤️
           </p>
-          <p className="letter-muted">/new-msgs — stay tuned ;)</p>
+          <p className="letter-muted" style={{ marginTop: 18 }}>
+            — added just now · more coming soon at /new-msgs ;)
+          </p>
         </div>
 
         <nav className="letter-nav" aria-label="New messages navigation">
