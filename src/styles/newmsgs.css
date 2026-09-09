@@ -102,3 +102,75 @@
   padding: 1px 5px;
   border-radius: 6px;
 }
+
+/* Love counter — Home */
+.love-counter {
+  margin-top: 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.love-counter-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 12px;
+}
+
+.love-counter-heart {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  font-size: 0.9rem;
+}
+
+.love-counter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.love-counter-cell {
+  background: rgba(0,0,0,0.24);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px 8px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+}
+
+.love-counter-cell strong {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.love-counter-cell span {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.52);
+}
+
+.love-counter-sub {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.52);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .love-counter-grid { gap: 8px; }
+  .love-counter-cell { padding: 12px 6px; }
+}

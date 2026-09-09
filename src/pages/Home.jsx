@@ -1,5 +1,6 @@
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import SideNav from "../components/SideNav.jsx";
+import LoveCounter from "../components/LoveCounter.jsx";
 import { getNewMsgs } from "../data/newMsgs.js";
 import "../styles/full-letter.css";
 import "../styles/newmsgs.css";
@@ -12,11 +13,9 @@ export default function Home() {
       <SideNav />
       <article className="full-letter-inner">
         <p className="letter-kicker">Home</p>
-        <h1 className="letter-title">Soon.</h1>
+        <h1 className="letter-title">Our Space</h1>
 
-        <div className="letter-body">
-          <p>More coming here soon — this home will grow with new features, same darkness.</p>
-        </div>
+        <LoveCounter />
 
         <div className="newmsgs-feed" style={{ marginTop: 18 }}>
           {latest.map((p) => (
