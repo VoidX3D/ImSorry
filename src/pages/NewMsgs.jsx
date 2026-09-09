@@ -13,21 +13,12 @@ export default function NewMsgs() {
       <article className="full-letter-inner newmsgs-inner">
         <p className="letter-kicker">New messages</p>
         <h1 className="letter-title">Flying kisses & more</h1>
-        <p className="letter-muted" style={{ marginBottom: 18 }}>
-          Posts feed — add future messages in <code>src/data/newMsgs.js</code> (id, text, createdAt, author). Nothing hardcoded.
-        </p>
 
         <div className="newmsgs-feed">
           {posts.map((p) => (
             <NewMsgPost key={p.id} post={p} />
           ))}
           {posts.length === 0 && <p className="letter-muted">No messages yet — check back soon.</p>}
-        </div>
-
-        <div className="newmsgs-hint">
-          <p className="letter-muted">
-            To add a new post: open <code>src/data/newMsgs.js</code>, push an object to <code>newMsgs</code>, commit & deploy — it appears here automatically.
-          </p>
         </div>
 
         <nav className="letter-nav" aria-label="New messages navigation">

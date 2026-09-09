@@ -14,10 +14,7 @@ export default function Home() {
         <h1 className="letter-title">Soon.</h1>
 
         <div className="letter-body">
-          <p>
-            Home for future features — heart at <code>/</code>, letter at <code>/full-letter</code>, posts at{" "}
-            <code>/new-msgs</code>. Everything here is data-driven.
-          </p>
+          <p>More coming here soon.</p>
         </div>
 
         <div className="newmsgs-feed" style={{ marginTop: 18 }}>
@@ -34,10 +31,6 @@ export default function Home() {
           <Link to="/full-letter" className="letter-back">Letter</Link>
           <Link to="/new-msgs" className="letter-back">New messages →</Link>
         </div>
-
-        <p className="letter-muted" style={{ marginTop: 18 }}>
-          To change anything here: edit <code>src/pages/Home.jsx</code> or <code>src/data/newMsgs.js</code> — no hardcoding in build.
-        </p>
       </article>
     </div>
   );
