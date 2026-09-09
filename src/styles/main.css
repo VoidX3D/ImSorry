@@ -256,21 +256,21 @@ body {
 
 /* Size variants — clamp for responsiveness (tuned for Caveat) */
 .message-text.size-small {
-  font-size: clamp(1.78rem, 4.8vw, 2.68rem);
+  font-size: clamp(1.95rem, 5vw, 2.9rem);
   max-width: 22ch;
   line-height: 1.32;
 }
 .message-text.size-normal {
-  font-size: clamp(2.18rem, 6.2vw, 3.55rem);
+  font-size: clamp(2.38rem, 6.6vw, 3.85rem);
   max-width: 18ch;
   line-height: 1.22;
 }
 .message-text.size-large {
-  font-size: clamp(2.52rem, 7vw, 4.45rem);
+  font-size: clamp(2.72rem, 7.4vw, 4.75rem);
   line-height: 1.18;
 }
 .message-text.size-xlarge {
-  font-size: clamp(2.92rem, 9vw, 5.85rem);
+  font-size: clamp(3.12rem, 9.4vw, 6.15rem);
   line-height: 1.12;
 }
 

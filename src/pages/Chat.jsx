@@ -45,10 +45,10 @@ export default function Chat() {
       <SideNav />
       <div className="chat-container">
         <header className="chat-header">
-          <div className="chat-header-avatar">S</div>
+          <div className="chat-header-avatar">❤️</div>
           <div className="chat-header-info">
-            <strong>Sin</strong>
-            <span>Comming soon just for you! ❤️ — live later</span>
+            <strong>LoveChat</strong>
+            <span>with Sin — Comming soon just for you! ❤️ — live later</span>
           </div>
           <span className="chat-header-dot" aria-hidden />
         </header>

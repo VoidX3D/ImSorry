@@ -20,7 +20,7 @@ export default function Home() {
         <div className="newmsgs-feed" style={{ marginTop: 18 }}>
           {latest.map((p) => (
             <article key={p.id} className="newmsg-post">
-              <p className="newmsg-text" style={{ fontSize: "1.2rem" }}>{p.text}</p>
+              <p className="newmsg-text">{p.text}</p>
               <p className="letter-muted" style={{ marginTop: 8 }}>{new Date(p.createdAt).toLocaleDateString()} · {p.author}</p>
             </article>
           ))}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
 /* Full-page chat — takes all available area, no side gaps */
 
 .chat-page {
@@ -6,12 +8,31 @@
   min-height: 100dvh;
   background: #000;
   display: flex;
-  justify-content: stretch;
   overflow: hidden;
+  font-family: "Google Sans", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .chat-page .particle-canvas {
-  opacity: 0.22;
+  opacity: 0.18;
+}
+
+/* Make SideNav part of layout on chat page, not floating */
+.chat-page .side-nav {
+  position: relative;
+  left: auto;
+  top: auto;
+  bottom: auto;
+  transform: none;
+  flex-direction: column;
+  align-self: stretch;
+  justify-content: center;
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: none;
+  padding: 16px 8px;
+  flex-shrink: 0;
 }
 
 .chat-container {
@@ -25,8 +46,6 @@
   display: flex;
   flex-direction: column;
   background: rgba(255,255,255,0.02);
-  border: none;
-  border-radius: 0;
   backdrop-filter: blur(8px);
 }
 
@@ -51,7 +70,7 @@
   background: linear-gradient(135deg, #a855f7, #ec4899);
   color: #fff;
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   flex-shrink: 0;
 }
 
@@ -61,12 +80,13 @@
 }
 
 .chat-header-info strong {
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .chat-header-info span {
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   color: rgba(255,255,255,0.52);
 }
 
@@ -86,7 +106,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -94,13 +114,14 @@
 
 .chat-bubble {
   max-width: 76%;
-  padding: 12px 14px;
+  padding: 11px 13px;
   border-radius: 18px;
   display: grid;
   gap: 4px;
   border: 1px solid rgba(255,255,255,0.08);
   word-break: break-word;
   animation: bubbleIn 180ms ease;
+  font-family: "Google Sans", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 @keyframes bubbleIn {
@@ -123,10 +144,11 @@
 }
 
 .chat-text {
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   line-height: 1.45;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  font-family: inherit;
 }
 
 .chat-time {
@@ -208,20 +230,33 @@
   padding: 0 16px;
   font-size: 16px;
   outline: none;
+  font-family: "Google Sans", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .chat-input::placeholder { color: rgba(255,255,255,0.42); }
 .chat-input:focus { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.09); }
 
+@media (max-width: 860px) {
+  .chat-page {
+    flex-direction: column;
+  }
+  .chat-page .side-nav {
+    flex-direction: row;
+    justify-content: center;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0;
+    padding: 8px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(0,0,0,0.32);
+  }
+  .chat-container { height: calc(100dvh - 56px); }
+}
+
 @media (max-width: 640px) {
   .chat-bubble { max-width: 84%; }
   .emoji-picker { grid-template-columns: repeat(6, 1fr); }
   .chat-list { padding: 14px; }
-}
-
-/* Leave room for SideNav on desktop — now full width minus rail */
-@media (min-width: 860px) {
-  .chat-page {
-    padding-left: 64px;
-  }
 }

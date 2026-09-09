@@ -69,7 +69,7 @@
 
 .newmsg-text {
   font-family: "Caveat", "Doppio One", "Chewy", cursive;
-  font-size: clamp(1.28rem, 3vw, 1.48rem);
+  font-size: clamp(1.45rem, 3.3vw, 1.68rem);
   line-height: 1.55;
   color: #fff;
   white-space: pre-wrap;
@@ -117,7 +117,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.62);
@@ -151,7 +151,7 @@
 }
 
 .love-counter-cell strong {
-  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-size: clamp(1.6rem, 4.4vw, 2.0rem);
   font-weight: 800;
   line-height: 1;
 }
@@ -165,7 +165,7 @@
 
 .love-counter-sub {
   margin-top: 10px;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   color: rgba(255,255,255,0.52);
   text-align: center;
 }
