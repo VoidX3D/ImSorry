@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import SideNav from "../components/SideNav.jsx";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import { initialChatMsgs } from "../data/chatMsgs.js";
 import "../styles/full-letter.css";
@@ -43,6 +44,7 @@ export default function Chat() {
   return (
     <div className="full-letter-shell chat-shell">
       <ParticleBackground subtle />
+      <SideNav />
       <article className="full-letter-inner chat-inner">
         <p className="letter-kicker">Chat</p>
         <h1 className="letter-title">Chat</h1>

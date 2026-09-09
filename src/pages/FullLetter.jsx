@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SideNav from "../components/SideNav.jsx";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import "../styles/full-letter.css";
 
@@ -6,6 +7,7 @@ export default function FullLetter() {
   return (
     <div className="full-letter-shell">
       <ParticleBackground subtle />
+      <SideNav />
       <article className="full-letter-inner">
         <p className="letter-kicker">A letter for you.</p>
         <h1 className="letter-title">Hey.</h1>
@@ -134,18 +136,7 @@ export default function FullLetter() {
           on this site, so stay tuned ;)
         </p>
 
-        <nav className="letter-nav" aria-label="Letter navigation">
-          <Link to="/" className="letter-back">
-            ← Back to the beginning
-          </Link>
-          <span className="letter-nav-sep" aria-hidden="true">
-            {" "}
-            ·{" "}
-          </span>
-          <Link to="/new-msgs" className="letter-back">
-            New messages →
-          </Link>
-        </nav>
+
       </article>
     </div>
   );

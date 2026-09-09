@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SideNav from "../components/SideNav.jsx";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import NewMsgPost from "../components/NewMsgPost.jsx";
 import { getNewMsgs } from "../data/newMsgs.js";
@@ -10,6 +11,7 @@ export default function NewMsgs() {
   return (
     <div className="full-letter-shell">
       <ParticleBackground subtle />
+      <SideNav />
       <article className="full-letter-inner newmsgs-inner">
         <p className="letter-kicker">New messages</p>
         <h1 className="letter-title">Flying kisses & more</h1>
