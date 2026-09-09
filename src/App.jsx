@@ -8,6 +8,7 @@ import SideNav from "./components/SideNav.jsx";
 import FullLetter from "./pages/FullLetter.jsx";
 import NewMsgs from "./pages/NewMsgs.jsx";
 import Home from "./pages/Home.jsx";
+import Chat from "./pages/Chat.jsx";
 
 function Experience() {
   const [phase, setPhase] = useState("heart"); // heart | messages
@@ -68,6 +69,7 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/full-letter" element={<FullLetter />} />
         <Route path="/new-msgs" element={<NewMsgs />} />
+        <Route path="/chat" element={<Chat />} />
         {/* fallback — any unknown goes to experience */}
         <Route path="*" element={<Experience />} />
       </Routes>

@@ -26,10 +26,20 @@ function HomeIcon({ size = 18 }) {
   );
 }
 
+function ChatIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+      <path d="M8 10h8 M8 14h5" />
+    </svg>
+  );
+}
+
 const items = [
-  { to: "/home", label: "Home — soon", Icon: HomeIcon },
+  { to: "/home", label: "Home", Icon: HomeIcon },
   { to: "/full-letter", label: "Letter", Icon: EnvelopeIcon },
   { to: "/new-msgs", label: "New messages", Icon: BellIcon },
+  { to: "/chat", label: "Chat", Icon: ChatIcon },
 ];
 
 export default function SideNav() {
