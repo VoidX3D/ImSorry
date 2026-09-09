@@ -35,7 +35,16 @@ function ChatIcon({ size = 18 }) {
   );
 }
 
+function HeartIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 21s-6.7-4.35-8.5-8.5C2.2 8.0 3.9 4.5 8 4.5c1.9 0 3.1 1.0 4 2.1 0.9-1.1 2.1-2.1 4-2.1 4.1 0 5.8 3.5 4.5 8C18.7 16.65 12 21 12 21z" />
+    </svg>
+  );
+}
+
 const items = [
+  { to: "/", label: "Heart — landing", Icon: HeartIcon },
   { to: "/home", label: "Home", Icon: HomeIcon },
   { to: "/full-letter", label: "Letter", Icon: EnvelopeIcon },
   { to: "/new-msgs", label: "New messages", Icon: BellIcon },
