@@ -48,7 +48,7 @@ export default function Chat() {
           <div className="chat-header-avatar">❤️</div>
           <div className="chat-header-info">
             <strong>LoveChat</strong>
-            <span>with Sin — Comming soon just for you! ❤️ — live later</span>
+            <span></span>
           </div>
           <span className="chat-header-dot" aria-hidden />
         </header>
