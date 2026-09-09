@@ -88,32 +88,45 @@
 
 .letter-nav {
   margin-top: 48px;
-  padding-top: 24px;
+  padding-top: 20px;
   border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
 .letter-back {
   font-family: "Caveat", "Doppio One", "Chewy", cursive;
-  font-size: 0.96rem;
-  letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.58);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-  padding-bottom: 2px;
-  transition: color 180ms ease, border-color 180ms ease;
-  display: inline-block;
-}
-
-.letter-back:hover,
-.letter-back:focus-visible {
+  font-size: clamp(1.08rem, 2.4vw, 1.18rem);
+  letter-spacing: 0.02em;
   color: #fff;
-  border-color: rgba(255,255,255,0.44);
-  outline: none;
+  text-decoration: none;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 11px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 180ms ease, border-color 180ms ease, transform 150ms ease;
+}
+
+.letter-back:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+.letter-back:active {
+  transform: scale(0.97);
 }
 
 .letter-back:focus-visible {
+  outline: none;
   box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(255,255,255,0.35);
-  border-radius: 2px;
 }
 
 @media (max-width: 480px) {
@@ -158,6 +171,5 @@
 }
 
 .letter-nav-sep {
-  color: rgba(255,255,255,0.22);
-  margin: 0 6px;
+  display: none;
 }
