@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import { loadMsgs, saveMsgs, createMsg } from "../lib/chatStore.js";
-import { chatBubbleThemes } from "../data/chatThemes.js";
+import { chatBubbleThemes, chatPageThemes } from "../data/chatThemes.js";
 import ChatThemePicker from "../components/ChatThemePicker.jsx";
 import EmojiPicker from "../components/EmojiPicker.jsx";
 import "../styles/chat.css";
@@ -37,10 +37,14 @@ export default function Chat() {
   const [bubble, setBubble] = useState(() => {
     try { return localStorage.getItem("chat-bubble") || "default"; } catch { return "default"; }
   });
+  const [pageTheme, setPageTheme] = useState(() => {
+    try { return localStorage.getItem("chat-page-theme") || "dark"; } catch { return "dark"; }
+  });
 
   useEffect(() => { try { localStorage.setItem("chat-bg", bg); } catch {} }, [bg]);
   useEffect(() => { try { localStorage.setItem("chat-font", font); } catch {} }, [font]);
   useEffect(() => { try { localStorage.setItem("chat-bubble", bubble); } catch {} }, [bubble]);
+  useEffect(() => { try { localStorage.setItem("chat-page-theme", pageTheme); } catch {} }, [pageTheme]);
 
   const bubbleTheme = chatBubbleThemes.find((t) => t.id === bubble) || chatBubbleThemes[0];
 
@@ -64,15 +68,14 @@ export default function Chat() {
 
   const addEmoji = (e) => setInput((s) => s + e);
 
-  const bgStyle = bg === "none" ? {} : { backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" };
+  const pageThemeObj = chatPageThemes.find((t) => t.id === pageTheme) || chatPageThemes[0];
+  const pageStyle = { fontFamily: font, background: pageThemeObj.bg, color: pageThemeObj.text };
+  const listBgStyle = bg === "none" ? {} : { backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" };
 
   return (
-    <div className="chat-page" style={{ fontFamily: font }}>
+    <div className="chat-page" style={pageStyle}>
       <ParticleBackground subtle />
-      <div className="chat-container" style={bgStyle}>
-        {/* Invisible overlay for readability when background image is set */}
-        {bg !== "none" && <div className="chat-bg-overlay" aria-hidden />}
-
+      <div className="chat-container">
         <header className="chat-header">
           <div className="chat-header-left">
             <div className="chat-header-avatar hogwarts-avatar" aria-hidden>
@@ -114,10 +117,11 @@ export default function Chat() {
         </header>
 
         {showThemes && (
-          <ChatThemePicker bg={bg} setBg={setBg} font={font} setFont={setFont} bubble={bubble} setBubble={setBubble} onClose={() => setShowThemes(false)} />
+          <ChatThemePicker bg={bg} setBg={setBg} font={font} setFont={setFont} bubble={bubble} setBubble={setBubble} pageTheme={pageTheme} setPageTheme={setPageTheme} onClose={() => setShowThemes(false)} />
         )}
 
-        <div className="chat-list" ref={listRef} role="log" aria-live="polite">
+        <div className="chat-list" ref={listRef} role="log" aria-live="polite" style={listBgStyle}>
+          {bg !== "none" && <div className="chat-list-bg-overlay" aria-hidden />}
           {msgs.map((m) => {
             const replied = m.replyTo ? msgs.find((x) => x.id === m.replyTo) : null;
             const isYou = m.from === "you";
