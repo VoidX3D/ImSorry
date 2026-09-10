@@ -344,11 +344,11 @@
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
 }
 
 .theme-thumb {
-  height: 64px;
+  height: 84px;
   border-radius: 12px;
   border: 2px solid transparent;
   cursor: pointer;
@@ -547,15 +547,15 @@
 
 .theme-popup {
   width: 100%;
-  max-width: 520px;
-  max-height: 78vh;
+  max-width: 680px;
+  max-height: 88vh;
   overflow-y: auto;
   background: #121214;
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 22px;
-  padding: 16px;
+  padding: 20px;
   display: grid;
-  gap: 14px;
+  gap: 16px;
   animation: popupIn 220ms cubic-bezier(0.22, 1, 0.36, 1);
   scrollbar-width: none;
 }
@@ -586,4 +586,158 @@
 .theme-section {
   display: grid;
   gap: 8px;
+}
+
+/* Row + 3-dots (Instagram-like, hover to show) */
+.chat-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  max-width: 100%;
+}
+
+.chat-row.from-you { flex-direction: row-reverse; }
+.chat-row.from-them { flex-direction: row; }
+
+.chat-row-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.chat-dots {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.72);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 150ms ease, background 150ms ease;
+}
+
+.chat-row:hover .chat-dots,
+.chat-row:focus-within .chat-dots,
+.chat-dots:focus-visible {
+  opacity: 1;
+}
+
+.chat-dots:hover { background: rgba(255,255,255,0.10); color: #fff; }
+
+@media (max-width: 640px) {
+  .chat-dots { opacity: 1; }
+}
+
+.chat-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 148px;
+  background: #1a1a1e;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 6px;
+  display: grid;
+  gap: 2px;
+  z-index: 10;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+}
+
+.chat-row.from-them .chat-menu { right: auto; left: 0; }
+
+.chat-menu button {
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 0.90rem;
+  cursor: pointer;
+}
+
+.chat-menu button:hover { background: rgba(255,255,255,0.08); }
+.chat-menu button.danger { color: #ff6b6b; }
+
+/* Reaction bar — bigger than Instagram (12 vs 7) but same UI */
+.chat-reaction-bar {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: #1a1a1e;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+  z-index: 11;
+}
+
+.chat-row.from-them .chat-reaction-bar { right: auto; left: 0; }
+
+.chat-reaction-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.chat-reaction-btn:hover { background: rgba(255,255,255,0.12); transform: scale(1.08); }
+
+.chat-reaction-more {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.chat-reactions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.chat-reaction {
+  font-size: 0.78rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.10);
+  cursor: pointer;
+}
+
+/* Emoji picker — bigger than Instagram but same UI */
+.emoji-picker {
+  padding: 12px;
+}
+
+.emoji-grid {
+  gap: 8px;
+}
+
+.emoji-btn {
+  height: 44px;
+  font-size: 1.35rem;
+}
+
+@media (max-width: 640px) {
+  .emoji-btn { height: 48px; font-size: 1.4rem; }
+  .chat-reaction-bar { gap: 4px; padding: 6px; }
+  .chat-reaction-btn { width: 36px; height: 36px; font-size: 1.15rem; }
 }

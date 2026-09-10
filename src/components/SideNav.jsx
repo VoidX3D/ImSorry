@@ -35,6 +35,17 @@ function ChatIcon({ size = 18 }) {
   );
 }
 
+function GridIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
 function HeartIcon({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -49,6 +60,7 @@ const items = [
   { to: "/full-letter", label: "Letter — Hedwig", Icon: EnvelopeIcon },
   { to: "/new-msgs", label: "New messages", Icon: BellIcon },
   { to: "/chat", label: "Owl Post — Hogwarts ⚡", Icon: ChatIcon },
+  { to: "/icons", label: "Icons — Full SVG sets", Icon: GridIcon },
 ];
 
 export default function SideNav() {

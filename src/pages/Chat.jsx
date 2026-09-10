@@ -24,6 +24,8 @@ export default function Chat() {
   const [showEmoji, setShowEmoji] = useState(false);
   const [showThemes, setShowThemes] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeReact, setActiveReact] = useState(null);
   const listRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -54,6 +56,24 @@ export default function Chat() {
 
   useEffect(() => { saveMsgs(msgs); }, [msgs]);
 
+  // Close 3-dots menu when clicking outside chat area
+  useEffect(() => {
+    const handler = (e) => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest(".chat-row-actions") && !target.closest(".chat-menu") && !target.closest(".chat-reaction-bar")) {
+        setActiveMenu(null);
+        setActiveReact(null);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, []);
+
   const send = () => {
     const t = input.trim();
     if (!t) return;
@@ -67,6 +87,36 @@ export default function Chat() {
   };
 
   const addEmoji = (e) => setInput((s) => s + e);
+
+  const addReaction = (msgId, emoji) => {
+    setMsgs((msgs) => msgs.map((m) => {
+      if (m.id !== msgId) return m;
+      const reactions = m.reactions || [];
+      const existing = reactions.find((r) => r.emoji === emoji);
+      if (existing) {
+        // toggle: if you already reacted, remove
+        const hasYou = existing.users?.includes("you");
+        if (hasYou) {
+          return { ...m, reactions: reactions.map((r) => r.emoji === emoji ? { ...r, count: r.count - 1, users: r.users.filter((u) => u !== "you") } : r).filter((r) => r.count > 0) };
+        }
+        return { ...m, reactions: reactions.map((r) => r.emoji === emoji ? { ...r, count: r.count + 1, users: [...(r.users||[]), "you"] } : r) };
+      }
+      return { ...m, reactions: [...reactions, { emoji, count: 1, users: ["you"] }] };
+    }));
+    setActiveReact(null);
+    setActiveMenu(null);
+  };
+
+  const handleCopy = async (text) => {
+    try { await navigator.clipboard.writeText(text); } catch {}
+    setActiveMenu(null);
+  };
+
+  const handleDelete = (id) => {
+    if (!confirm("Delete this message?")) return;
+    setMsgs((msgs) => msgs.filter((m) => m.id !== id));
+    setActiveMenu(null);
+  };
 
   const pageThemeObj = chatPageThemes.find((t) => t.id === pageTheme) || chatPageThemes[0];
   const pageStyle = { fontFamily: font, background: pageThemeObj.bg, color: pageThemeObj.text };
@@ -129,10 +179,40 @@ export default function Chat() {
               ? { background: bubbleTheme.you, color: bubbleTheme.youText, borderColor: bubbleTheme.you }
               : { background: bubbleTheme.them, color: bubbleTheme.themText };
             return (
-              <div key={m.id} className={`chat-bubble ${isYou ? "from-you" : "from-them"}`} style={style} onClick={() => setReplyTo(m)} role="button" tabIndex={0}>
-                {replied && <div className="chat-reply-quote">↳ {replied.text.slice(0, 60)}</div>}
-                <p className="chat-text">{m.text}</p>
-                <span className="chat-time">{timeAgo(m.at)}</span>
+              <div key={m.id} className={`chat-row ${isYou ? "from-you" : "from-them"}`}>
+                <div className={`chat-bubble ${isYou ? "from-you" : "from-them"}`} style={style}>
+                  {replied && <div className="chat-reply-quote">↳ {replied.text.slice(0, 60)}</div>}
+                  <p className="chat-text">{m.text}</p>
+                  <span className="chat-time">{timeAgo(m.at)}</span>
+                  {m.reactions && m.reactions.length > 0 && (
+                    <div className="chat-reactions">
+                      {m.reactions.map((r) => (
+                        <span key={r.emoji} className="chat-reaction" onClick={() => addReaction(m.id, r.emoji)}>{r.emoji} {r.count > 1 ? r.count : ""}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="chat-row-actions">
+                  <button type="button" className="chat-dots" aria-label="More" onClick={() => setActiveMenu(activeMenu === m.id ? null : m.id)}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden><circle cx="12" cy="12" r="1.8"/><circle cx="6" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></svg>
+                  </button>
+                  {activeMenu === m.id && (
+                    <div className="chat-menu" role="menu">
+                      <button type="button" role="menuitem" onClick={() => { setReplyTo(m); setActiveMenu(null); }}>↳ Reply</button>
+                      <button type="button" role="menuitem" onClick={() => { setActiveReact(m.id); setActiveMenu(null); }}>❤️ React</button>
+                      <button type="button" role="menuitem" onClick={() => handleCopy(m.text)}>⎙ Copy</button>
+                      <button type="button" role="menuitem" className="danger" onClick={() => handleDelete(m.id)}>🗑 Delete</button>
+                    </div>
+                  )}
+                  {activeReact === m.id && (
+                    <div className="chat-reaction-bar" role="dialog" aria-label="React">
+                      {["❤️","😘","💋","🥺","😭","✨","🫶","😂","🥹","🔥","💀","🤍"].map((e) => (
+                        <button key={e} type="button" className="chat-reaction-btn" onClick={() => addReaction(m.id, e)}>{e}</button>
+                      ))}
+                      <button type="button" className="chat-reaction-more" onClick={() => { setActiveReact(null); setShowEmoji(true); }}>＋</button>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
