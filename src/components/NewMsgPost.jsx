@@ -14,20 +14,11 @@ function timeAgo(iso) {
 export default function NewMsgPost({ post }) {
   return (
     <article className="newmsg-post">
-      <header className="newmsg-post-head">
-        <div className="newmsg-avatar" aria-hidden>
-          {post.author?.[0] || "S"}
-        </div>
-        <div className="newmsg-meta">
-          <strong className="newmsg-author">{post.author || "Sin"}</strong>
-          <span className="newmsg-time">{timeAgo(post.createdAt)}</span>
-        </div>
-        <span className="newmsg-badge">new</span>
+      <header className="newmsg-post-head" style={{ justifyContent: "space-between" }}>
+        <span className="newmsg-by">by your beloved</span>
+        <span className="newmsg-time">{timeAgo(post.createdAt)}</span>
       </header>
       <p className="newmsg-text">{post.text}</p>
-      <footer className="newmsg-foot">
-        <span className="newmsg-id">#{post.id}</span>
-      </footer>
     </article>
   );
 }

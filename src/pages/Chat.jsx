@@ -45,10 +45,16 @@ export default function Chat() {
       <SideNav />
       <div className="chat-container">
         <header className="chat-header">
-          <div className="chat-header-avatar">❤️</div>
+          <div className="chat-header-avatar hogwarts-avatar" aria-hidden>
+            <svg width="22" height="22" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M50 18 L20 82 L80 82 Z" />
+              <circle cx="50" cy="52" r="14" />
+              <path d="M50 18 L50 82" />
+            </svg>
+          </div>
           <div className="chat-header-info">
-            <strong>LoveChat</strong>
-            <span></span>
+            <strong>Owl Post</strong>
+            <span>Hogwarts · Hedwig is listening</span>
           </div>
           <span className="chat-header-dot" aria-hidden />
         </header>

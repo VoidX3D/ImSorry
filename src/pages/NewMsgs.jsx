@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import SideNav from "../components/SideNav.jsx";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import NewMsgPost from "../components/NewMsgPost.jsx";
@@ -22,26 +21,6 @@ export default function NewMsgs() {
           ))}
           {posts.length === 0 && <p className="letter-muted">No messages yet — check back soon.</p>}
         </div>
-
-        <nav className="letter-nav" aria-label="New messages navigation">
-          <Link to="/full-letter" className="letter-back">
-            ← Back to the letter
-          </Link>
-          <span className="letter-nav-sep" aria-hidden="true">
-            {" "}
-            ·{" "}
-          </span>
-          <Link to="/home" className="letter-back">
-            Home
-          </Link>
-          <span className="letter-nav-sep" aria-hidden="true">
-            {" "}
-            ·{" "}
-          </span>
-          <Link to="/" className="letter-back">
-            Heart
-          </Link>
-        </nav>
       </article>
     </div>
   );

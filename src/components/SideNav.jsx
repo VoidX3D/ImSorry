@@ -44,11 +44,11 @@ function HeartIcon({ size = 18 }) {
 }
 
 const items = [
-  { to: "/", label: "Heart — landing", Icon: HeartIcon },
-  { to: "/home", label: "Home", Icon: HomeIcon },
-  { to: "/full-letter", label: "Letter", Icon: EnvelopeIcon },
+  { to: "/", label: "Heart — landing ⚡", Icon: HeartIcon },
+  { to: "/home", label: "Home — Hogwarts", Icon: HomeIcon },
+  { to: "/full-letter", label: "Letter — Hedwig", Icon: EnvelopeIcon },
   { to: "/new-msgs", label: "New messages", Icon: BellIcon },
-  { to: "/chat", label: "Chat", Icon: ChatIcon },
+  { to: "/chat", label: "Owl Post — Hogwarts ⚡", Icon: ChatIcon },
 ];
 
 export default function SideNav() {

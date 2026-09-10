@@ -46,7 +46,6 @@ export default function LoveCounter() {
           <span>seconds</span>
         </div>
       </div>
-      <p className="love-counter-sub">Every second counts — more home features coming soon.</p>
     </div>
   );
 }

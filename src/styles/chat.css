@@ -260,3 +260,9 @@
   .emoji-picker { grid-template-columns: repeat(6, 1fr); }
   .chat-list { padding: 14px; }
 }
+
+.hogwarts-avatar {
+  background: #0e1a40 !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  color: #ecb939 !important;
+}

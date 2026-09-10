@@ -1,4 +1,4 @@
-.newmsgs-inner { max-width: 640px; }
+.newmsgs-inner { max-width: 860px; width: 100%; }
 
 .newmsgs-feed {
   display: grid;
@@ -10,7 +10,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 16px;
-  padding: 16px 16px 14px;
+  padding: 20px 20px 18px;
   backdrop-filter: blur(8px);
   transition: border-color 180ms ease, background 180ms ease;
 }
@@ -173,4 +173,39 @@
 @media (max-width: 480px) {
   .love-counter-grid { gap: 8px; }
   .love-counter-cell { padding: 12px 6px; }
+}
+
+.newmsg-by {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(255,255,255,0.62);
+  font-style: italic;
+}
+
+.hp-houses {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.hp-house {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.hp-house.gryffindor { background: #740001; }
+.hp-house.hufflepuff { background: #ecb939; }
+.hp-house.ravenclaw { background: #0e1a40; }
+.hp-house.slytherin { background: #1a472a; }
+
+.hp-ps {
+  position: relative;
+}
+
+.hp-ps-icon {
+  margin-right: 6px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.22));
 }
