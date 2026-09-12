@@ -1,7 +1,7 @@
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import SideNav from "../components/SideNav.jsx";
 import LoveCounter from "../components/LoveCounter.jsx";
-import { getNewMsgs } from "../data/newMsgs.js";
+import { getNewMsgs } from "../data/new-msgs.js";
 import "../styles/full-letter.css";
 import "../styles/newmsgs.css";
 

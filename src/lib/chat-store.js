@@ -2,7 +2,7 @@
 // Schema for future Postgres: id (cuid), text, createdAt (ISO), authorId, authorName, replyTo (id|null), updatedAt, deletedAt
 // Current persistence: localStorage ("chat-msgs-v1"). Swap to API by replacing load/save with fetch.
 
-import { initialChatMsgs } from "../data/chatMsgs.js";
+import { initialChatMsgs } from "../data/chat-msgs.js";
 
 const STORAGE_KEY = "chat-msgs-v1";
 

@@ -4,10 +4,10 @@
 
 export const chatBackgrounds = [
   { id: "none", label: "Default", value: "none", preview: "linear-gradient(180deg, #0a0a0a, #000)" },
-  { id: "hogwarts-night", label: "Hogwarts Night", value: "/backgrounds/19660-amazing-hogwarts-wallpapers-3840x2160-smartphone.webp" },
-  { id: "hogwarts-castle", label: "Hogwarts Castle", value: "/backgrounds/2164916-1920x1080-desktop-1080p-hogwarts-castle-background-photo.webp" },
-  { id: "diagon-alley", label: "Diagon Alley", value: "/backgrounds/UOR_DiagonAlley_VB.webp" },
-  { id: "great-hall", label: "Great Hall", value: "/backgrounds/ca81942bc657ad5135ca49b1e899848c.webp" },
+  { id: "hogwarts-night", label: "Hogwarts Night", value: "/backgrounds/hogwarts-night.webp" },
+  { id: "hogwarts-castle", label: "Hogwarts Castle", value: "/backgrounds/hogwarts-castle.webp" },
+  { id: "diagon-alley", label: "Diagon Alley", value: "/backgrounds/diagon-alley.webp" },
+  { id: "great-hall", label: "Great Hall", value: "/backgrounds/great-hall.webp" },
 ];
 
 export const chatFonts = [
@@ -19,7 +19,7 @@ export const chatFonts = [
 ];
 
 export const chatBubbleThemes = [
-  { id: "default", label: "Default", you: "#fff", youText: "#0a0a0a", them: "rgba(255,255,255,0.07)", themText: "#fff" },
+  { id: "default", label: "Default — Instagram (#0095f6)", you: "#0095f6", youText: "#fff", them: "#262626", themText: "#fff" },
   { id: "hogwarts", label: "Hogwarts", you: "#740001", youText: "#fff", them: "#0e1a40", themText: "#ecb939" },
   { id: "midnight", label: "Midnight", you: "#1a1a1a", youText: "#fff", them: "#262626", themText: "#fff" },
   { id: "instagram", label: "Instagram", you: "linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)", youText: "#fff", them: "rgba(255,255,255,0.08)", themText: "#fff" },

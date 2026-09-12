@@ -1,4 +1,4 @@
-import { chatBackgrounds, chatFonts, chatBubbleThemes, chatPageThemes } from "../data/chatThemes.js";
+import { chatBackgrounds, chatFonts, chatBubbleThemes, chatPageThemes } from "../data/chat-themes.js";
 
 export default function ChatThemePicker({ bg, setBg, font, setFont, bubble, setBubble, pageTheme, setPageTheme, onClose }) {
   return (
@@ -80,7 +80,7 @@ export default function ChatThemePicker({ bg, setBg, font, setFont, bubble, setB
           </div>
         </div>
 
-        <p className="theme-hint">Add more in <code>src/data/chatThemes.js</code> + <code>public/backgrounds/</code> — Instagram-like popup</p>
+
       </div>
     </div>
   );

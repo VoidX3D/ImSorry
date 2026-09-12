@@ -1,7 +1,7 @@
 import SideNav from "../components/SideNav.jsx";
 import ParticleBackground from "../components/ParticleBackground.jsx";
 import NewMsgPost from "../components/NewMsgPost.jsx";
-import { getNewMsgs } from "../data/newMsgs.js";
+import { getNewMsgs } from "../data/new-msgs.js";
 import "../styles/full-letter.css";
 import "../styles/newmsgs.css";
 

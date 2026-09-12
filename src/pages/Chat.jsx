@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ParticleBackground from "../components/ParticleBackground.jsx";
-import { loadMsgs, saveMsgs, createMsg } from "../lib/chatStore.js";
-import { chatBubbleThemes, chatPageThemes } from "../data/chatThemes.js";
+import { loadMsgs, saveMsgs, createMsg } from "../lib/chat-store.js";
+import { users, getUser } from "../data/users.js";
+import { chatBubbleThemes, chatPageThemes } from "../data/chat-themes.js";
 import ChatThemePicker from "../components/ChatThemePicker.jsx";
 import EmojiPicker from "../components/EmojiPicker.jsx";
 import "../styles/chat.css";
@@ -42,11 +43,15 @@ export default function Chat() {
   const [pageTheme, setPageTheme] = useState(() => {
     try { return localStorage.getItem("chat-page-theme") || "dark"; } catch { return "dark"; }
   });
+  const [currentUser, setCurrentUser] = useState(() => {
+    try { return localStorage.getItem("chat-user") || "sin"; } catch { return "sin"; }
+  });
 
   useEffect(() => { try { localStorage.setItem("chat-bg", bg); } catch {} }, [bg]);
   useEffect(() => { try { localStorage.setItem("chat-font", font); } catch {} }, [font]);
   useEffect(() => { try { localStorage.setItem("chat-bubble", bubble); } catch {} }, [bubble]);
   useEffect(() => { try { localStorage.setItem("chat-page-theme", pageTheme); } catch {} }, [pageTheme]);
+  useEffect(() => { try { localStorage.setItem("chat-user", currentUser); } catch {} }, [currentUser]);
 
   const bubbleTheme = chatBubbleThemes.find((t) => t.id === bubble) || chatBubbleThemes[0];
 
@@ -77,7 +82,8 @@ export default function Chat() {
   const send = () => {
     const t = input.trim();
     if (!t) return;
-    const newMsg = createMsg({ text: t, replyTo: replyTo?.id || null, authorId: "you", authorName: "you" });
+    const u = getUser(currentUser);
+    const newMsg = createMsg({ text: t, replyTo: replyTo?.id || null, authorId: u.id, authorName: u.displayName });
     setMsgs((m) => [...m, newMsg]);
     setInput("");
     setReplyTo(null);
@@ -142,22 +148,22 @@ export default function Chat() {
           </div>
           <nav className="chat-header-nav" aria-label="Chat navigation">
             <Link to="/" className="chat-nav-link" title="Heart" aria-label="Heart">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><path d="M12 21s-6.7-4.35-8.5-8.5C2.2 8.0 3.9 4.5 8 4.5c1.9 0 3.1 1.0 4 2.1 0.9-1.1 2.1-2.1 4-2.1 4.1 0 5.8 3.5 4.5 8C18.7 16.65 12 21 12 21z" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden><path d="M12 21s-6.7-4.35-8.5-8.5C2.2 8.0 3.9 4.5 8 4.5c1.9 0 3.1 1.0 4 2.1 0.9-1.1 2.1-2.1 4-2.1 4.1 0 5.8 3.5 4.5 8C18.7 16.65 12 21 12 21z" /></svg>
             </Link>
             <Link to="/home" className="chat-nav-link" title="Home" aria-label="Home">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><path d="M3 9L12 2l9 7v11a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden><path d="M3 9L12 2l9 7v11a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /></svg>
             </Link>
             <Link to="/full-letter" className="chat-nav-link" title="Letter" aria-label="Letter">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
             </Link>
             <Link to="/new-msgs" className="chat-nav-link" title="New messages" aria-label="New messages">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><path d="M6 8a6 6 0 0 1 12 0c0 7-6 11-6 11S6 15 6 8" /><path d="M10 21a2 2 0 0 0 4 0" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden><path d="M6 8a6 6 0 0 1 12 0c0 7-6 11-6 11S6 15 6 8" /><path d="M10 21a2 2 0 0 0 4 0" /></svg>
             </Link>
             <Link to="/chat" className="chat-nav-link is-active" title="Owl Post" aria-label="Owl Post" aria-current="page">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" /><path d="M8 10h8 M8 14h5" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" /><path d="M8 10h8 M8 14h5" /></svg>
             </Link>
             <button type="button" className="chat-theme-btn" onClick={() => setShowThemes((v) => !v)} aria-label="Themes" title="Themes">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 3a9 9 0 0 0 0 18" fill="currentColor" opacity="0.12" />
                 <path d="M12 7a5 5 0 0 0 0 10" />
@@ -174,16 +180,19 @@ export default function Chat() {
           {bg !== "none" && <div className="chat-list-bg-overlay" aria-hidden />}
           {msgs.map((m) => {
             const replied = m.replyTo ? msgs.find((x) => x.id === m.replyTo) : null;
-            const isYou = m.from === "you";
+            const author = getUser(m.authorId || (m.from === "you" ? currentUser : m.from?.toLowerCase()) || "sin");
+            const isYou = author.id === currentUser;
             const style = isYou
               ? { background: bubbleTheme.you, color: bubbleTheme.youText, borderColor: bubbleTheme.you }
               : { background: bubbleTheme.them, color: bubbleTheme.themText };
             return (
               <div key={m.id} className={`chat-row ${isYou ? "from-you" : "from-them"}`}>
+                {!isYou && <img src={author.pfp} alt={author.displayName} className="chat-pfp" width="28" height="28" />}
                 <div className={`chat-bubble ${isYou ? "from-you" : "from-them"}`} style={style}>
                   {replied && <div className="chat-reply-quote">↳ {replied.text.slice(0, 60)}</div>}
                   <p className="chat-text">{m.text}</p>
                   <span className="chat-time">{timeAgo(m.at)}</span>
+                  {isYou && <span className="chat-extra">{m.id === msgs[msgs.length-1]?.id ? "Seen" : "Delivered"}</span>}
                   {m.reactions && m.reactions.length > 0 && (
                     <div className="chat-reactions">
                       {m.reactions.map((r) => (
@@ -192,6 +201,7 @@ export default function Chat() {
                     </div>
                   )}
                 </div>
+                {isYou && <img src={getUser(currentUser).pfp} alt="you" className="chat-pfp you-pfp" width="28" height="28" />}
                 <div className="chat-row-actions">
                   <button type="button" className="chat-dots" aria-label="More" onClick={() => setActiveMenu(activeMenu === m.id ? null : m.id)}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden><circle cx="12" cy="12" r="1.8"/><circle cx="6" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></svg>
@@ -206,7 +216,7 @@ export default function Chat() {
                   )}
                   {activeReact === m.id && (
                     <div className="chat-reaction-bar" role="dialog" aria-label="React">
-                      {["❤️","😘","💋","🥺","😭","✨","🫶","😂","🥹","🔥","💀","🤍"].map((e) => (
+                      {["😊","🥺","😘","💋","✨","🫶","😂","🥹","🔥","💀","🤍","❤️"].map((e) => (
                         <button key={e} type="button" className="chat-reaction-btn" onClick={() => addReaction(m.id, e)}>{e}</button>
                       ))}
                       <button type="button" className="chat-reaction-more" onClick={() => { setActiveReact(null); setShowEmoji(true); }}>＋</button>
@@ -235,7 +245,7 @@ export default function Chat() {
             aria-expanded={showEmoji}
             onClick={() => setShowEmoji((v) => !v)}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
               <circle cx="12" cy="12" r="9" />
               <path d="M8 14s1.5 2 4 2 4-2 4-2" />
               <path d="M9 9h.01 M15 9h.01" />

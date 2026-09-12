@@ -99,8 +99,8 @@
 }
 
 .chat-header-avatar {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -150,11 +150,11 @@
 .chat-list::-webkit-scrollbar { display: none; }
 
 .chat-bubble {
-  max-width: 76%;
-  padding: 11px 13px;
+  max-width: 60%;
+  padding: 8px 12px;
   border-radius: 18px;
   display: grid;
-  gap: 4px;
+  gap: 2px;
   border: 1px solid rgba(255,255,255,0.08);
   word-break: break-word;
   animation: bubbleIn 180ms ease;
@@ -181,7 +181,7 @@
 }
 
 .chat-text {
-  font-size: 1.12rem;
+  font-size: 0.92rem;
   line-height: 1.45;
   white-space: pre-wrap;
   overflow-wrap: break-word;
@@ -189,9 +189,21 @@
 }
 
 .chat-time {
-  font-size: 0.70rem;
+  font-size: 0.68rem;
   opacity: 0.55;
   justify-self: end;
+}
+
+.chat-extra {
+  font-size: 0.70rem;
+  opacity: 0;
+  justify-self: end;
+  transition: opacity 150ms ease;
+}
+
+.chat-bubble:hover .chat-extra,
+.chat-bubble:focus-within .chat-extra {
+  opacity: 0.62;
 }
 
 .chat-bubble.from-you .chat-time { opacity: 0.55; }
@@ -681,8 +693,8 @@
 .chat-row.from-them .chat-reaction-bar { right: auto; left: 0; }
 
 .chat-reaction-btn {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
   border: none;
   background: rgba(255,255,255,0.06);
@@ -696,8 +708,8 @@
 .chat-reaction-btn:hover { background: rgba(255,255,255,0.12); transform: scale(1.08); }
 
 .chat-reaction-more {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.06);
@@ -740,4 +752,33 @@
   .emoji-btn { height: 48px; font-size: 1.4rem; }
   .chat-reaction-bar { gap: 4px; padding: 6px; }
   .chat-reaction-btn { width: 36px; height: 36px; font-size: 1.15rem; }
+}
+
+.chat-pfp {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.12);
+  flex-shrink: 0;
+  background: #000;
+}
+
+.chat-pfp.you-pfp {
+  border-color: rgba(255,255,255,0.18);
+}
+
+.chat-user-select {
+  margin-left: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  outline: none;
+}
+
+.chat-user-select:focus {
+  border-color: rgba(255,255,255,0.18);
 }
